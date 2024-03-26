@@ -30,5 +30,4 @@ The plugin will automatically activate and deactivate `.venv` when you move into
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](https://github.com/SangwoonYun/zsh-auto-venv/LICENSE) file for details.
-
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/SangwoonYun/zsh-auto-venv/blob/main/LICENSE) file for details.
