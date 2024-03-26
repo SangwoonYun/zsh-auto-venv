@@ -58,29 +58,40 @@ auto_venv_update_check() {
 # Call the update check function when the plugin loads
 auto_venv_update_check
 
-# autoload is used to load the add-zsh-hook function.
-autoload -U add-zsh-hook
-
-# Function to search for .venv directories from the current directory upwards.
 find_venv() {
     local dir=$1
-    while [[ "$dir" != "" && ! -e "$dir/.venv" ]]; do
-        dir=${dir%/*}
+    local found_venvs=()  # Array to hold found virtual environments
+
+    # Search for 'bin/activate' in current and all parent directories
+    while [[ "$dir" != "" ]]; do
+        # Look for 'bin/activate' in all subdirectories of the current directory
+        found_venvs=($(find "$dir" -maxdepth 3 -type f -name "activate" -path "*/bin/activate"))
+        echo $found_venvs
+        if [[ "${#found_venvs[@]}" -gt 0 ]]; then
+            echo "${found_venvs[0]%/*/*}"  # Return the first found virtual environment path
+            return
+        fi
+        dir=${dir%/*}  # Move up to the parent directory
     done
-    echo $dir
 }
 
 # Function to activate or deactivate virtual environments.
 activate_venv() {
     local venv_path=$(find_venv $PWD)
     if [[ -n "$venv_path" ]]; then
+        if [[ "$VIRTUAL_ENV" && "$VIRTUAL_ENV" != "$venv_path" ]]; then
+            deactivate
+        fi
         # Activates the virtual environment if found.
-        source "$venv_path/.venv/bin/activate"
+        source "$venv_path"
     elif [[ -n "$VIRTUAL_ENV" ]]; then
         # Deactivates the virtual environment if exited from project directory.
         deactivate
     fi
 }
+
+# autoload is used to load the add-zsh-hook function.
+autoload -U add-zsh-hook
 
 # Sets up the function to be called whenever the current directory changes.
 add-zsh-hook chpwd activate_venv
