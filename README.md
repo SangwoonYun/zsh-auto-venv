@@ -1,27 +1,26 @@
-# zsh-auto-venv Zsh Plugin
+# auto-venv Bash Script
 
-This is a Zsh plugin that automatically activates a Python virtual environment when entering a directory that contains a `.venv` folder and deactivates it when leaving the directory.
+This is a Bash plugin that automatically activates a Python virtual environment when entering a directory that contains a `.venv` folder and deactivates it when leaving the directory.
 
 ## Installation
 
-### Oh My Zsh
-
-1. Clone the repository into the Oh My Zsh custom plugins folder:
+1. Clone the repository into the .plugins folder:
 
    ```
-   git clone https://github.com/SangwoonYun/zsh-auto-venv ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-auto-venv
+   git clone https://github.com/SangwoonYun/zsh-auto-venv ${HOME}/.plugins/auto-venv
    ```
 
-2. Add `zsh-auto-venv` to the list of plugins in your `.zshrc`:
+2. Add `source auto-venv` to the bottom of script in your `.bashrc`:
 
-   ```zsh
-   plugins=(... zsh-auto-venv)
+   ```bash
+   ...
+   source auto-venv
    ```
 
-3. Source your `.zshrc` or restart your terminal session:
+3. Source your `.bashrc` or restart your terminal session:
 
-   ```zsh
-   source ~/.zshrc
+   ```bash
+   source ~/.bashrc
    ```
 
 ## Usage
@@ -31,3 +30,4 @@ The plugin will automatically activate and deactivate `.venv` when you move into
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](https://github.com/SangwoonYun/zsh-auto-venv/blob/main/LICENSE) file for details.
+
