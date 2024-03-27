@@ -65,7 +65,7 @@ find_venv() {
     # Search for 'bin/activate' in current and all parent directories
     while [[ "$dir" != "" ]]; do
         # Look for 'bin/activate' in all subdirectories of the current directory
-        found_venvs=($(find "$dir" -maxdepth 3 -type f -name "activate" -path "*/bin/activate"))
+        found_venvs=($(find "$dir" -maxdepth 3 -type f -name "activate" -path "*/bin/activate" 2>/dev/null))
         if [[ "${#found_venvs[@]}" -gt 0 ]]; then
             echo $found_venvs  # Return the first found virtual environment path
             return
